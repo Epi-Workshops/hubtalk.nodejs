@@ -21,4 +21,19 @@ const getTownsTemperatures = (...town) => new Promise((s, f) => getTemperatures(
         return acc
     }, []))).catch(f))
 
-//getTownsTemperatures('Strasbourg', 'Paris').then(console.log).catch(console.error)
+http.createServer((req, res) => {
+    res.setHeader('Content-Type', 'text/html')
+    res.writeHead(200)
+    getTownsTemperatures('strasbourg', 'paris').then(e => res.end(`<html>
+        <head>
+            <title>Weather | Node.js</title>
+            <link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css" type="text/css">
+        </head>
+        <body>
+            <h1>Weather</h1>
+            <ul>    
+                ${e.map(t => `<li>${Object.keys(t).pop()} | <strong>${t[Object.keys(t).pop()]}</strong></li>`).join('')} 
+            </ul>
+        </body>
+    </html>`))
+}).listen('1664')
