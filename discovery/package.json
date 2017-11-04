@@ -1,0 +1,11 @@
+{
+  "name": "discovery",
+  "version": "0.0.1",
+  "description": "node.js discovery for tek1",
+  "main": "app.js",
+  "scripts": {
+    "start": "node src/app.js"
+  },
+  "author": "Yann Carlen",
+  "license": "MIT"
+}
