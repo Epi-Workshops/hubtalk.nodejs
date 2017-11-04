@@ -14,3 +14,11 @@ const fetchInfos = town => new Promise((s, f) => fetch(getUrl(constructUrl(town)
 }).catch(f))
 
 const getTemperatures = (...town) => Promise.all(town.map(fetchInfos))
+
+const getTownsTemperatures = (...town) => new Promise((s, f) => getTemperatures(...town)
+    .then(e => s(e.reduce((acc, cur) => {
+        acc.push({ [cur['city_info'].name]: cur['current_condition'].tmp })
+        return acc
+    }, []))).catch(f))
+
+//getTownsTemperatures('Strasbourg', 'Paris').then(console.log).catch(console.error)
